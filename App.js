@@ -12,7 +12,15 @@ export default function App() {
     <>
       <StatusBar />
       <View style={estilos.container}>
-        <MapView style={estilos.mapa} initialRegion={regiaoInicial} />
+        <MapView
+          style={estilos.mapa}
+          initialRegion={regiaoInicial}
+          liteMode={false} //Só android
+          mapType="hybrid" //Satellite, hybrid, standard
+          userInterfaceStyle="dark"
+          maxZoomLevel={15} //Quanto maior o número, mais perto consigo buscar via zoom.
+          minZoomLevel={2} //Quanto maior o número, menos consigo tirar zoom.
+        />
       </View>
     </>
   );
