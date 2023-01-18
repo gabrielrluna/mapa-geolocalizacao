@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, StatusBar } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 export default function App() {
   const regiaoInicial = {
@@ -8,19 +8,34 @@ export default function App() {
     latitudeDelta: 0.0222,
     longitudeDelta: 0.0121,
   };
+  const localizacao = {
+    latitude: -33.867886,
+    longitude: -63.987,
+    latitudeDelta: 10,
+    longitudeDelta: 10,
+  };
   return (
     <>
       <StatusBar />
       <View style={estilos.container}>
         <MapView
           style={estilos.mapa}
-          initialRegion={regiaoInicial}
+          initialRegion={localizacao}
           liteMode={false} //Só android
-          mapType="hybrid" //Satellite, hybrid, standard
+          mapType="satellite" //Satellite, hybrid, standard
           userInterfaceStyle="dark"
-          maxZoomLevel={15} //Quanto maior o número, mais perto consigo buscar via zoom.
-          minZoomLevel={2} //Quanto maior o número, menos consigo tirar zoom.
-        />
+          // maxZoomLevel={15} //Quanto maior o número, mais perto consigo buscar via zoom.
+          // minZoomLevel={2} //Quanto maior o número, menos consigo tirar zoom.
+        >
+          <Marker
+            draggable
+            coordinate={localizacao}
+            title={"Guitarrinha uhu"}
+            onPress={(event) => {
+              console.log(event.nativeEvent);
+            }}
+          />
+        </MapView>
       </View>
     </>
   );
