@@ -3,28 +3,49 @@ import MapView, { Marker } from "react-native-maps";
 import { useState } from "react";
 
 export default function App() {
-  const [local, setLocal] = useState({
+  const regiaoInicial = {
     latitude: -23.52618,
     longitude: -46.54027,
-    latitudeDelta: 0.0222,
-    longitudeDelta: 0.0121,
+    latitudeDelta: 10,
+    longitudeDelta: 10,
+  };
+
+  const [localizacao, setLocalizacao] = useState({
+    latitude: -30.52618,
+    longitude: -15.54027,
+    latitudeDelta: 5,
+    longitudeDelta: 5,
   });
 
+  const marcarLocal = (event) => {
+    setLocalizacao({
+      ...localizacao,
+      latitude: event.nativeEvent.coordinate.latitude,
+      longitude: event.nativeEvent.coordinate.longitude,
+    });
+
+    console.log(localizacao);
+  };
   return (
     <>
       <StatusBar />
       <View style={estilos.container}>
         <MapView
           style={estilos.mapa}
-          initialRegion={local}
+          initialRegion={regiaoInicial}
           liteMode={false} //Só android
           mapType="satellite" //Satellite, hybrid, standard
           userInterfaceStyle="dark"
           // maxZoomLevel={15} //Quanto maior o número, mais perto consigo buscar via zoom.
           // minZoomLevel={2} //Quanto maior o número, menos consigo tirar zoom.
-          onPress={(event) => event.nativeEvent(setLocal)}
+          onPress={marcarLocal}
         >
-          <Marker draggable coordinate={local} title={"Guitarrinha uhu"} />
+          <Marker
+            draggable
+            coordinate={localizacao}
+            title={"Guitarrinha uhu"}
+            onPress={(event) => console.log(e.nativeEvent)}
+          />
         </MapView>
       </View>
     </>
