@@ -32,7 +32,8 @@ export default function App() {
       <View style={estilos.container}>
         <MapView
           style={estilos.mapa}
-          initialRegion={regiaoInicial}
+          // initialRegion={regiaoInicial}
+          region={localizacao ?? regiaoInicial}
           liteMode={false} //Só android
           mapType="satellite" //Satellite, hybrid, standard
           userInterfaceStyle="dark"
@@ -40,12 +41,14 @@ export default function App() {
           // minZoomLevel={2} //Quanto maior o número, menos consigo tirar zoom.
           onPress={marcarLocal}
         >
-          <Marker
-            draggable
-            coordinate={localizacao}
-            title={"Guitarrinha uhu"}
-            onPress={(event) => console.log(e.nativeEvent)}
-          />
+          {localizacao && (
+            <Marker
+              draggable
+              coordinate={localizacao}
+              title={"Guitarrinha uhu"}
+              onPress={(event) => console.log(e.nativeEvent)}
+            />
+          )}
         </MapView>
       </View>
     </>
